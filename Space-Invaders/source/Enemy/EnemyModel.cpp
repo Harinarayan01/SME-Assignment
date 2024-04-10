@@ -3,73 +3,76 @@
 
 namespace Enemy
 {
-	EnemyModel::EnemyModel(EnemyType type) 
-	{
-		enemy_type = type;
-		entity_type = Entity::EntityType::ENEMY;
-	}
+    // Initialize static member variable
+    sf::Vector2f EnemyModel::reference_position = {0.0f, 0.0f};
 
-	EnemyModel::~EnemyModel() { }
+    EnemyModel::EnemyModel(EnemyType type)
+    {
+        enemy_type = type;
+        entity_type = Entity::EntityType::ENEMY;
+    }
 
-	void EnemyModel::initialize()
-	{
-		enemy_state = EnemyState::PATROLLING;
-		movement_direction = MovementDirection::RIGHT;
-		enemy_position = reference_position;
-	}
+    EnemyModel::~EnemyModel() { }
 
-	sf::Vector2f EnemyModel::getEnemyPosition()
-	{
-		return enemy_position;
-	}
+    void EnemyModel::initialize()
+    {
+        enemy_state = EnemyState::PATROLLING;
+        movement_direction = MovementDirection::RIGHT;
+        enemy_position = reference_position;
+    }
 
-	void EnemyModel::setEnemyPosition(sf::Vector2f position)
-	{
-		enemy_position = position;
-	}
+    sf::Vector2f EnemyModel::getEnemyPosition()
+    {
+        return enemy_position;
+    }
 
-	sf::Vector2f EnemyModel::getReferencePosition()
-	{
-		return reference_position;
-	}
+    void EnemyModel::setEnemyPosition(sf::Vector2f position)
+    {
+        enemy_position = position;
+    }
 
-	void EnemyModel::setReferencePosition(sf::Vector2f position)
-	{
-		reference_position = position;
-	}
+    sf::Vector2f EnemyModel::getReferencePosition()
+    {
+        return reference_position;
+    }
 
-	EnemyState EnemyModel::getEnemyState()
-	{
-		return enemy_state;
-	}
+    void EnemyModel::setReferencePosition(sf::Vector2f position)
+    {
+        reference_position = position;
+    }
 
-	void EnemyModel::setEnemyState(EnemyState state)
-	{
-		enemy_state = state;
-	}
+    EnemyState EnemyModel::getEnemyState()
+    {
+        return enemy_state;
+    }
 
-	EnemyType EnemyModel::getEnemyType()
-	{
-		return enemy_type;
-	}
+    void EnemyModel::setEnemyState(EnemyState state)
+    {
+        enemy_state = state;
+    }
 
-	void EnemyModel::setEnemyType(EnemyType type)
-	{
-		enemy_type = type;
-	}
+    EnemyType EnemyModel::getEnemyType()
+    {
+        return enemy_type;
+    }
 
-	MovementDirection EnemyModel::getMovementDirection()
-	{
-		return movement_direction;
-	}
+    void EnemyModel::setEnemyType(EnemyType type)
+    {
+        enemy_type = type;
+    }
 
-	void EnemyModel::setMovementDirection(MovementDirection direction)
-	{
-		movement_direction = direction;
-	}
+    MovementDirection EnemyModel::getMovementDirection()
+    {
+        return movement_direction;
+    }
 
-	Entity::EntityType EnemyModel::getEntityType()
-	{
-		return entity_type;
-	}
+    void EnemyModel::setMovementDirection(MovementDirection direction)
+    {
+        movement_direction = direction;
+    }
+
+    Entity::EntityType EnemyModel::getEntityType()
+    {
+        return entity_type;
+    }
 }
