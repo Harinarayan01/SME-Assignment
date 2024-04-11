@@ -1,1 +1,66 @@
-place your include and lib folders here
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <random>
+#include <chrono>
+
+class Camera {
+private:
+    sf::Vector2f originalPosition;
+    sf::Vector2f shakeOffset;
+    float shakeDuration;
+    float shakeIntensity;
+    std::default_random_engine generator;
+
+public:
+    Camera() : shakeDuration(0), shakeIntensity(0) {}
+
+    void shake(float intensity, float duration) {
+        shakeIntensity = intensity;
+        shakeDuration = duration;
+        originalPosition = getPosition();
+    }
+
+    void update(float dt) {
+        if (shakeDuration > 0) {
+            shakeOffset.x = std::normal_distribution<float>(0, shakeIntensity)(generator);
+            shakeOffset.y = std::normal_distribution<float>(0, shakeIntensity)(generator);
+            shakeDuration -= dt;
+        } else {
+            shakeOffset = sf::Vector2f(0, 0);
+        }
+    }
+
+    void applyShake(sf::RenderWindow& window) {
+        window.setView(sf::View(originalPosition + shakeOffset, window.getView().getSize()));
+    }
+
+    sf::Vector2f getPosition() {
+        return originalPosition;
+    }
+};
+
+int main() {
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Camera Shake Example");
+    Camera camera;
+
+    // Main loop
+    sf::Clock clock;
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        // Update
+        float dt = clock.restart().asSeconds();
+        camera.update(dt);
+
+        // Draw
+        window.clear(sf::Color::Black);
+        camera.applyShake(window);
+        window.display();
+    }
+
+    return 0;
+}
